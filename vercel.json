@@ -1,0 +1,42 @@
+{
+  "version": 2,
+  "buildCommand": "composer install --no-dev --optimize-autoloader && npm ci && npm run build && php artisan config:cache && php artisan route:cache && php artisan view:cache",
+  "installCommand": "composer install --no-dev --optimize-autoloader && npm ci",
+  "framework": null,
+  "functions": {
+    "api/index.php": {
+      "runtime": "php8.2",
+      "memory": 1024,
+      "maxDuration": 30
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/api/index.php"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/build/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/(.*\\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot))",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ],
+  "env": {
+    "APP_ENV": "production"
+  }
+}

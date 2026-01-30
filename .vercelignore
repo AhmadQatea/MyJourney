@@ -1,0 +1,11 @@
+node_modules
+vendor
+storage
+bootstrap/cache
+.env
+.env.*
+!.env.example
+tests
+.phpunit.result.cache
+.DS_Store
+important.txt
